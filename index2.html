@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        $(document).ready(function () {
+            function fetchData(url, targetId, type) {
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (data) {
+                        var values = JSON.parse(data);
+                        $("#"+targetId).text(values[type]);
+                    },
+                });
+            }
+        
+            setInterval(function () {
+                fetchData("sistem/score.php", "team-1-score", 0);
+                fetchData("sistem/score.php", "team-2-score", 1);
+                fetchData("sistem/score.php", "team-3-score", 2);
+                fetchData("sistem/team.php", "team-1-name", 0);
+                fetchData("sistem/team.php", "team-2-name", 1);
+                fetchData("sistem/team.php", "team-3-name", 2);
+            }, 1000);
+        });
+    </script>
+
+    <div>
+        <p><span id="team-1-name"></span> : <span id="team-1-score"></span></p>
+        <p><span id="team-2-name"></span> : <span id="team-2-score"></span></p>
+        <p><span id="team-3-name"></span> : <span id="team-3-score"></span></p>
+    </div>
+    
+    
+  </body>
+</html>
